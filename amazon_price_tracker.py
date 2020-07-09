@@ -3,12 +3,12 @@ from bs4 import BeautifulSoup
 import time
 import smtplib
 
-
 # defing the web url form the product that i want to track
 url = 'https://www.amazon.com.br/Teclado-Mecanico-K7-Rainbow-Fortrek-2019-windows/dp/B07NRTQXR6/ref=sr_1_2?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=3ASRDF755788U&dchild=1&keywords=teclado+mecanico+redragon&qid=1594258247&sprefix=teclado+meca%2Caps%2C282&sr=8-2'
 # defing the headers
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'}
-WANTED_PRICE = 160
+# definindo o preço alvo de compra
+WANTED_PRICE = 260
 
 # Método que vai fazer o rastreio do preço e saber se  ele está abaixo ou acima do preço alvo
 def trackPrice():
@@ -30,17 +30,20 @@ def getPrice():
     title = soup.find(id ='productTitle').get_text().strip()
     price = soup.find(id = 'priceblock_ourprice').get_text().strip()[2:5]
 
-
-    print(title)
-    print(price)
+    # print(title)
+    # print(price)
 
     return price
 
+    
+
+# Validação para garantir que estou chamando a classe principal Main
 if __name__ == "__main__":
     while True:
         getPrice()
         trackPrice()
-        time.sleep(2)
+        quit()
+        # time.sleep(2)
 
 
 '''
