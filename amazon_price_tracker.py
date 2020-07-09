@@ -9,6 +9,8 @@ url = 'https://www.amazon.com.br/Teclado-Mecanico-K7-Rainbow-Fortrek-2019-window
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'}
 # definindo o preço alvo de compra
 WANTED_PRICE = 260
+email ='ricardoesqueceuasenha@gmail.com'
+senha = 'car5jeh.ZOMP0park'
 
 # Método que vai fazer o rastreio do preço e saber se  ele está abaixo ou acima do preço alvo
 def trackPrice():
@@ -35,13 +37,49 @@ def getPrice():
 
     return price
 
+# função que envia e-mail automático caso tenha o preço for abaixo do preço alvo 
+def enviaEmail():
+
     
+    # definindo qual servidor SMTP iremos enviar e qual porta utilizar
+    servidor = smtplib.SMTP('smtp.gmail.com',587)
+    
+    # comando utilizado para enviar ao servidor uma requisição entre dois servidores de e-mail
+    servidor.ehlo()
+    
+    # encriptando a conexão
+    servidor.starttls()
+    
+    # comando utilizado para enviar ao servidor uma requisição entre dois servidores de e-mail
+    servidor.ehlo()
+    
+    # efetuando login no servidor
+    servidor.login(email,senha)
+
+    # definindo o assunto do e-mail
+    assunto = f'Preço do {title} caiu!'
+    
+    # definindo a mensagem no corpo do e-mail
+    corpo = f'O preço do produto caiu, entra lá pra comprar! {url}'
+
+    mensagem = f'Subject: {assunto}\n\n{corpo}'
+
+    servidor.sendmail(
+        email,
+        email,
+        mensagem
+    )
+    print('E-mail enviado! :D')
+
+    servidor.quit()
+
 
 # Validação para garantir que estou chamando a classe principal Main
 if __name__ == "__main__":
     while True:
         getPrice()
         trackPrice()
+        print(email)
         quit()
         # time.sleep(2)
 
