@@ -9,6 +9,8 @@ url = 'https://www.amazon.com.br/Teclado-Mecanico-K7-Rainbow-Fortrek-2019-window
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'}
 # definindo o preço alvo de compra
 WANTED_PRICE = 260
+email ='seue-mail'
+senha = 'suasenha'
 
 # Método que vai fazer o rastreio do preço e saber se  ele está abaixo ou acima do preço alvo
 def trackPrice():
@@ -27,7 +29,7 @@ def getPrice():
     soup = BeautifulSoup(page.content, 'html.parser')
 
     # Creating the variable title that will contain the title of the product that you
-    title = soup.find(id ='productTitle').get_text().strip()
+    # title = soup.find(id ='productTitle').get_text().strip()
     price = soup.find(id = 'priceblock_ourprice').get_text().strip()[2:5]
 
     # print(title)
@@ -35,13 +37,53 @@ def getPrice():
 
     return price
 
+# função que envia e-mail automático caso tenha o preço for abaixo do preço alvo 
+def enviaEmail():
+
     
+    # definindo qual servidor SMTP iremos enviar e qual porta utilizar
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    
+    # comando utilizado para enviar ao server uma requisição entre dois serveres de e-mail
+    server.ehlo()
+    
+    # encriptando a conexão
+    server.starttls()
+    
+    # # comando utilizado para enviar ao server uma requisição entre dois serveres de e-mail
+    # server.ehlo()
+    
+    # efetuando login no server
+    # server.login('ricardoesqueceuasenha@gmail.com','car5jeh.ZOMP0park')
+    server.login(email,senha)
+
+    # definindo o assunto do e-mail
+    assunto = f'Preço do produto caiu!'
+    
+    # definindo a mensagem no corpo do e-mail
+    corpo = f'O preço do produto caiu, entra lá pra comprar! {url}'
+
+    msg = f"Subject:{assunto}\n\n{corpo}"
+    mensagem = msg.encode('ascii')
+
+    remetente = 'seue-mail@gmail.com'.encode('utf8')
+    para = 'seue-mail@gmail.com'.encode('utf8')
+
+    server.sendmail( remetente , para, mensagem)
+
+    print('E-mail enviado! :D')
+
+    server.quit()
+
 
 # Validação para garantir que estou chamando a classe principal Main
 if __name__ == "__main__":
     while True:
         getPrice()
         trackPrice()
+        print(email)
+        print(senha)
+        # enviaEmail()
         quit()
         # time.sleep(2)
 
