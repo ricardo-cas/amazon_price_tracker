@@ -7,6 +7,7 @@ url = 'https://www.amazon.com.br/Teclado-Mecanico-K7-Rainbow-Fortrek-2019-window
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'}
 WANTED_PRICE = 160
 
+# Método que vai fazer o rastreio do preço e saber se  ele está abaixo ou acima do preço alvo
 def trackPrice():
     price = int(getPrice())
     if price > WANTED_PRICE:
@@ -15,6 +16,7 @@ def trackPrice():
     else:
         print(f'Ebá!!!! Chegou a hora de comprar! O produto atingiu um preço abaixo do seu preço alvo: {WANTED_PRICE}')
 
+# método que pega o preço do site 
 def getPrice():
     # seding a request to the page and bringing it down
     page = requests.get(url, headers=headers)
@@ -27,7 +29,6 @@ def getPrice():
 
 
     print(title)
-    
     print(price)
 
     return price
