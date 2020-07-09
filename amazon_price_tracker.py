@@ -27,8 +27,9 @@ def getPrice():
 
 
     print(title)
-    print(price)
     
+    print(price)
+
     return price
 
 if __name__ == "__main__":
