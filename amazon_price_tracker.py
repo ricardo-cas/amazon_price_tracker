@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import time
+import smtplib
 
 
 # defing the web url form the product that i want to track
@@ -36,8 +37,10 @@ def getPrice():
     return price
 
 if __name__ == "__main__":
-    getPrice()
-    trackPrice()
+    while True:
+        getPrice()
+        trackPrice()
+        time.sleep(2)
 
 
 '''
