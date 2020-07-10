@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import smtplib
+import os
 
 # defing the web url form the product that i want to track
 url = 'https://www.amazon.com.br/Teclado-Mecanico-K7-Rainbow-Fortrek-2019-windows/dp/B07NRTQXR6/ref=sr_1_2?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=3ASRDF755788U&dchild=1&keywords=teclado+mecanico+redragon&qid=1594258247&sprefix=teclado+meca%2Caps%2C282&sr=8-2'
@@ -9,8 +10,8 @@ url = 'https://www.amazon.com.br/Teclado-Mecanico-K7-Rainbow-Fortrek-2019-window
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'}
 # definindo o preço alvo de compra
 WANTED_PRICE = 260
-email ='seue-mail'
-senha = 'suasenha'
+email = os.environ.get('GMAIL_USER')
+senha = os.environ.get('GMAIL_PASSWORD')
 
 # Método que vai fazer o rastreio do preço e saber se  ele está abaixo ou acima do preço alvo
 def trackPrice():
@@ -54,7 +55,6 @@ def enviaEmail():
     # server.ehlo()
     
     # efetuando login no server
-    # server.login('ricardoesqueceuasenha@gmail.com','car5jeh.ZOMP0park')
     server.login(email,senha)
 
     # definindo o assunto do e-mail
@@ -81,8 +81,6 @@ if __name__ == "__main__":
     while True:
         getPrice()
         trackPrice()
-        print(email)
-        print(senha)
         # enviaEmail()
         quit()
         # time.sleep(2)
