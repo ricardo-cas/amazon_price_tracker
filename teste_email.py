@@ -1,0 +1,21 @@
+import time
+import smtplib
+import os
+
+email = os.environ.get('GMAIL_USER')
+senha = os.environ.get('GMAIL_PASSWORD')
+
+with smtplib.SMTP('smtp.gmail.com', 587) as server:
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+
+
+    server.login(email,senha)
+
+    assunto = 'Teste de envio de e-mail via Python'
+    corpo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin facilisis vestibulum laoreet. Quisque venenatis faucibus augue, quis gravida ligula tincidunt at. Phasellus non gravida justo. Nunc sit amet purus nisi. Vestibulum ullamcorper mi arcu, id cursus quam facilisis eget. Phasellus pulvinar pellentesque volutpat. In pellentesque lacus vel molestie tempus. In ut faucibus magna. Proin at varius felis. Phasellus suscipit in nisi sed fringilla. Fusce a lectus ante. Proin eu turpis at nulla ultricies condimentum. Suspendisse eget scelerisque metus, venenatis rhoncus augue.Pellentesque ligula ligula, cursus at metus vitae, vestibulum dapibus eros. Vestibulum venenatis tortor at ipsum imperdiet, non luctus turpis fringilla. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas porttitor lacus ipsum, eu feugiat metus tempor vitae. Duis quis orci tellus. In rutrum felis id porta dignissim. Phasellus fermentum ipsum eu elit efficitur placerat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam lectus diam, commodo vel risus eu, vulputate imperdiet purus. Curabitur et luctus nulla. Vestibulum aliquam faucibus nisl, eu viverra tellus commodo et. Sed in arcu eleifend, interdum magna ut, placerat quam. Morbi luctus diam vel rhoncus mollis. Pellentesque nisl nibh, hendrerit vel rutrum vitae, egestas sed leo. Vivamus sed leo a metus porttitor scelerisque. Integer aliquet ex lorem, non laoreet felis auctor quis.Etiam et tempor mauris, sed accumsan metus. Aenean ut tortor orci. Duis vulputate lacus ligula, ac faucibus dolor cursus sed. Integer ut gravida nisi, in lacinia est. Phasellus iaculis felis id massa bibendum gravida. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce vel tempor ligula, ac imperdiet dolor. Sed tincidunt, ipsum sit amet vehicula consequat, nisl tortor pulvinar nisi, eu mollis sem libero eget purus. Maecenas dui purus, luctus eget neque a, ullamcorper accumsan sem. Aliquam erat volutpat. Donec laoreet, nunc ac vulputate pulvinar, mi est sodales leo, eu varius elit diam eu ex. Nunc nisi tellus, tincidunt ut vestibulum ut, pellentesque nec nisi. Phasellus et nisi augue. Ut non sem eget mi ultricies tincidunt eget et metus. Proin posuere arcu ipsum, id pellentesque massa pretium ut. Mauris tincidunt sodales felis nec faucibus.Praesent dapibus aliquam massa, at porttitor dolor eleifend at. Morbi lectus turpis, pulvinar eleifend mi ac, convallis congue lorem. Curabitur rutrum tincidunt tempor. Cras sed magna nisi. Sed vehicula, diam vel venenatis pretium, sem ipsum tincidunt nibh, vel blandit urna elit id augue. Suspendisse potenti. Cras in nulla non arcu venenatis lobortis eget ut tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus accumsan odio vel sem interdum, at finibus nulla efficitur. Duis eu bibendum purus. Quisque tempus rutrum euismod. Vivamus mattis pellentesque justo, bibendum tristique leo tempus eget. In sed magna facilisis, placerat eros eget, tristique turpis.Vivamus pretium urna a ante dictum cursus. Sed tristique quam in semper gravida. Mauris gravida vestibulum massa, at consectetur odio rutrum a. Proin sollicitudin facilisis molestie. Aenean vel fringilla odio. Maecenas aliquet pellentesque quam, luctus convallis nunc tincidunt a. Sed rhoncus elit eget ipsum vehicula tempor. Mauris massa mi, placerat nec nunc vel, blandit rutrum dui. Phasellus nec eros scelerisque, ultrices quam vitae, facilisis ante. Vestibulum quis ex ullamcorper, volutpat orci ac, viverra sem. Praesent posuere imperdiet aliquet.'
+    msg = f'Subject: {assunto}\n\n{corpo}'
+
+
+    server.sendmail(email, email, msg)
